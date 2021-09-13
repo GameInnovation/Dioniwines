@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
-    'svg',
     'django_bootstrap_icons',
     'greek',
     # 'django_cleanup.apps.CleanupConfig', Σβήνει τα images απο τα media το ΕΒΓΑΛΑ.
