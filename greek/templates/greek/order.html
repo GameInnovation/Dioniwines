@@ -1,0 +1,144 @@
+{% extends 'greek/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'order2.css' %}">
+  
+
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+  <title>DioniWines</title>
+
+</head>
+
+
+<body>
+
+  <section>
+
+ 
+
+  <!-- <div class="form-flags">
+      
+          
+          <ul>
+            
+            
+            <a href="{% url 'order' %}"><img class="gbflag-active" src="{% static 'GB.png' %}" width="5%"
+              alt="Britain Flag">
+            </a>
+            
+            <a href="{% url 'greekorder' %}"><img class="grflag" src="{% static 'GR.png' %}" width="5%"
+              alt="Greek Flag">
+            </a>
+            
+          </ul>
+        </div>
+      -->
+
+
+  <form method="POST" enctype="multipart/form-data">
+
+    <div class="row">
+
+      <div class="form">
+
+
+
+
+
+        <!-- Τη μέθοδο την κανουμε POST γιατι θα στείλουμε δεδομένα στον Server με αυτη τη φόρμα -->
+        {% csrf_token %}
+
+        <!-- <img src="/media/customer/default.jpg" width="10%" alt="customer photo">--> <br>
+        <div class="form-style">
+
+          <ul class="main-nav form">
+            <li>
+              <label>Η Φωτογραφια σου</label> <br>
+              <small id="description">Ανεβασε την Φωτογραφια σου εδω.Προαιρετικο.</small><br> <br>
+              {{ form.customer_photo }}
+            </li>
+            <br> <br>
+            <li>
+              <label>oνομα</label> <br>
+              {{ form.customer_first_name }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Επιθετο</label><br>
+              {{ form.customer_second_name }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Χωρα</label><br>
+              {{ form.country }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Πολη</label><br>
+              {{ form.town }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Διευθυνση</label><br>
+              {{ form.address }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Ταχυδρομικος <br> Κωδικας (Τ.Κ)</label><br>
+              {{ form.postalcode }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Περιγραφη Παραγγελιας</label> <br>
+              {{ form.order_description }}
+            </li>
+            <br> <br>
+            <li>
+              <label>Παραγγελια</label> <br>
+              {{ form.order }}
+            </li>
+            <br> <br>
+            <li>
+              <button type="submit" id="Place-Order">ΟΚ</button>
+            </li>
+          </ul>
+
+        </div>
+  </form>
+  </div>
+  </div>
+
+</section>
+
+
+
+ 
+
+
+
+
+
+
+</body>
+
+</html>
+{% endblock %}

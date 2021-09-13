@@ -1,0 +1,81 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+
+{{ error }}
+{{ saved }}
+<br><br>
+
+Created On: {{ viewfeeddbacks.created }} <br>
+
+<br>
+{% if viewfeeddbacks.customer_photo %}
+
+<!-- όχι URL όταν μπαίνει σε IF Statment -->
+<!-- / στο path αλλιώς δεν παίζει η photo -->
+<form method="POST" enctype="multipart/form-data">
+
+  {% csrf_token %}
+  <img src="{{ viewfeeddbacks.customer_photo.url }}" width="10%" alt="customer photo"> <br><br>
+
+  Your Photo : {{ form.customer_photo }}
+
+  {% csrf_token %}
+  <br><br>
+  Customer first name: {{ form.customer_first_name }}
+  <br>
+  <br>
+  Customer second name: {{ form.customer_second_name }}
+  <br>
+  <br>
+  Feedback description: {{ form.feedback_description }}
+  <br>
+  <br>
+  Feedback description: {{ form.feedback }}
+  <br>
+  <br>
+  Delete: {{ form.deleted }}
+  <br>
+  <br>
+  <button type="submit">Save Changes</button>
+
+</form>
+
+{% else %}
+
+
+<form method="POST" enctype="multipart/form-data">
+
+  <img src="/media/customer/default.jpg" width="10%" alt="customer photo"> <br>
+  {% csrf_token %}
+  Your Photo : {{ form.customer_photo }}
+
+  {% csrf_token %}
+  <br><br>
+  Customer first name: {{ form.customer_first_name }}
+  <br>
+  <br>
+  Customer second name: {{ form.customer_second_name }}
+  <br>
+  <br>
+  Feedback description: {{ form.feedback_description }}
+  <br>
+  <br>
+  Feedback description: {{ form.feedback }}
+  <br>
+  <br>
+  Delete: {{ form.deleted }}
+  <br>
+  <br>
+  <button type="submit">Save Changes</button>
+
+</form>
+<br>
+
+{% endif %}
+
+<form method="POST" action="{% url 'deletefeedback' viewfeeddbacks.id %}">
+  {% csrf_token %}
+  <button type="submit">Delete For EVER</button>
+</form>
+{% endblock %}

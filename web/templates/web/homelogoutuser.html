@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+  </script>
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '1.3 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '2cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '3cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '4cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '5cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '6cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '7cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '8cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '9cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '10cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '11cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '12cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'cols.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'html5reset.css' %}">
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'ionicons.min.css' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+  <title>Omnifood</title>
+</head>
+
+<body>
+  <header>
+    <!--Αυτό φαίνεται στο GOOGLE-->
+    <nav>
+      <div class="row">
+
+        <img src="{% static 'logo-white.png' %}" alt="Omnifood logo" class="logo" style="margin-left: -10%;">
+        <ul class="main-nav navbar-nav ml-auto">
+          <li>
+            <a href="#">Food delivery</a>
+            <a href="#">How it works</a>
+            <a href="#">Our cities</a>
+
+            {% if user.is_authenticated %}
+
+            <!-- <h1 class="logInLezante">Logged in as {{ user.username }}</h1>-->
+
+            <a href="feedback" style="color: #e67e22;">Write your feedback here</a>
+
+            {% if feedbacks %}
+            <a href="allmyfeedback" style="color: #e67e22;">All My Feedback ( {{ feedbacks.count }} )</a>
+            {% endif %}
+            <!-- <a href="#">Log Out</a> -->
+            <!-- Αυτό πρέπει να είναι σαν Form -->
+            <a href="#" style="color: chartreuse;">Hello: &nbsp; {{ user.username }}</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="#" onclick="$('#signOutBtn').click()" style="background-color: red;">Logout</a>
+            <form style='display: none;' action="{% url 'logoutuser' %}" method="POST">
+
+              {% csrf_token %}
+              <button id="signOutBtn" type="submit">Logout</button>
+            </form>
+          </li>
+
+          {% else %}
+          <li>
+            <a href="{% url 'signupuser' %}">Sign Up</a>
+
+            <a href="{% url 'loginuser' %}">Log In</a>
+
+          </li>
+          {% endif %}
+        </ul>
+
+      </div>
+    </nav>
+    <div class="hero-text-box">
+      <h1>Goodbye junk food.<br> Hello super healthy meals.</h1>
+      <a class="btn btn-full" href="#">I’m hungry</a>
+      <a class="btn btn-ghost" href="#">Show me more</a>
+    </div>
+
+
+  </header>
+  <section class="section-features">
+
+    <div class="row">
+
+
+      <!-- <i class="ion-heart"></i> Λόγω του οτι είναι Django δεν δουλεύουν τα ions -->
+
+      <h2>Get food fast &mdash; not fast food</h2>
+      <p class="long-copy">
+        Hello, we’re Omnifood, your new premium food delivery service.
+        We know you’re always busy. No time for cooking.
+        So let us take care of that, we’re really good at it, we promise!
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col span-1-of-4">
+
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="28%" height="28%" fill="currentColor"
+          class="bi bi-calendar3 icon-big-calendar" viewBox="0 0 16 16">
+          <path
+            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+          <path
+            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+        </svg>
+
+
+
+
+
+        <h3>Up to 365 days/year</h3>
+        <p>
+          Never cook again! We really mean that. Our subscription plans include up to 365 days/year coverage.
+          You can also choose to order more flexibly if that's your style.
+        </p>
+      </div>
+
+
+      <div class="col span-1-of-4 box">
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor"
+          class="bi bi-clock icon-big" viewBox="0 0 16 16">
+          <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+        </svg>
+
+
+        <h3>Ready in 20 minutes</h3>
+        <p>
+          You're only twenty minutes away from your delicious and super healthy meals delivered right to your home. We
+          work with
+          the best chefs in each town to ensure that you're 100% happy.
+        </p>
+      </div>
+
+      <div class="col span-1-of-4 box">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor" class="bi bi-egg icon-big"
+          viewBox="0 0 16 16">
+          <path
+            d="M8 15a5 5 0 0 1-5-5c0-1.956.69-4.286 1.742-6.12.524-.913 1.112-1.658 1.704-2.164C7.044 1.206 7.572 1 8 1c.428 0 .956.206 1.554.716.592.506 1.18 1.251 1.704 2.164C12.31 5.714 13 8.044 13 10a5 5 0 0 1-5 5zm0 1a6 6 0 0 0 6-6c0-4.314-3-10-6-10S2 5.686 2 10a6 6 0 0 0 6 6z" />
+        </svg>
+
+        <h3>100% organic</h3>
+        <p>
+          All our vegetables are fresh, organic and local. Animals are raised without added hormones or antibiotics.
+          Good for your
+          health, the environment, and it also tastes better!
+        </p>
+      </div>
+
+      <div class="col span-1-of-4 box">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor"
+          class="bi bi-credit-card icon-big" viewBox="0 0 16 16">
+          <path
+            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" />
+          <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z" />
+        </svg>
+
+        <h3>Order anything</h3>
+        <p>
+          We don't limit your creativity, which means you can order whatever you feel like. You can also choose from our
+          menu
+          containing over 100 delicious meals. It's up to you!
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section-meals">
+    <ul class="meals-showcase clearfix">
+
+      <li>
+        <figure class="meal-photo">
+
+          <img src="media\images\1.jpg" alt="Korean bibimbap with egg and vegetables">
+
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\2.jpg" alt="Simple italian pizza with cherry tomatoes">
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\3.jpg" alt="Chicken breast steak with vegetables ">
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\4.jpg" alt="Autumn pumpkin soup">
+        </figure>
+      </li>
+
+    </ul>
+
+    <ul class="meals-showcase clearfix">
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\5.jpg" alt="Paleo beef steak with vegetables">
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\6.jpg" alt="Healthy baguette with egg and vegetables">
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\7.jpg" alt="Burger with cheddar and bacon">
+        </figure>
+      </li>
+
+      <li>
+        <figure class="meal-photo">
+          <img src="media\images\8.jpg" alt="Granola with cherries and strawberries">
+        </figure>
+      </li>
+
+    </ul>
+
+
+  </section>
+
+  <section class="section-steps">
+
+    <div class="row">
+      <h2>How it works &mdash; Simple as 1, 2, 3</h2>
+    </div>
+
+    <div class="row">
+      <div class="col span-1-of-2 steps-box">
+        <img src="{% static 'app-iphone.png' %}" alt="Omnifood app on iPhone" class="app-screen">
+      </div>
+
+      <div class="col span-1-of-2 steps-box">
+
+        <div class="works-step">
+          <div>1</div>
+          <p>Choose the subscription plan that best fits your needs and sign up today.</p>
+        </div>
+
+        <div class="works-step">
+          <div>2</div>
+          <p>Order your delicious meal using our mobile app or website. Or you can even call us!</p>
+        </div>
+
+        <div class="works-step">
+          <div>3</div>
+          <p>Enjoy your meal after less than 20 minutes. See you the next time!</p>
+        </div>
+
+        <a href="#" class="btn-app"><img src="{% static 'download-app.svg' %}" alt="App Store Button"></a>
+        <a href="#" class="btn-app"><img src="{% static 'download-app-android.png' %}" alt="App Store Button"></a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section-cities">
+
+    <div class="row">
+      <h2>We're currently in these cities</h2>
+    </div>
+
+    <div class="row">
+
+      <!-- <img src="media\cities\1.jpg" alt="City Name">-->
+
+
+
+      {% for detail in restaurant_details %}
+
+      <div class="col span-1-of-4 box">
+
+        <img src={{ detail.city_photo.url }} alt="City Name">
+
+        <h3>{{ detail.city_name }}</h3>
+
+        <div class="city-feature">
+          <!-- Person Icon-->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-person-fill icon-small" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+          </svg>
+          {{ detail.person_clients }}
+        </div>
+
+        <div class="city-feature">
+          <!-- Star Icon-->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-star-fill icon-small" viewBox="0 0 16 16">
+            <path
+              d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+          </svg>
+          {{ detail.top_chefs }}
+        </div>
+
+        <div class="city-feature">
+          <!-- Twiter Icon-->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-twitter icon-small" viewBox="0 0 16 16">
+            <path
+              d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+          </svg>
+          <a href="#">{{ detail.twitter }}</a>
+
+        </div>
+      </div>
+      {% endfor %}
+
+  </section>
+  <section class="section-testimonials">
+    <div class="row">
+      <h2>Our customers can't live without us</h2>
+    </div>
+    <div class="row">
+      <div class="raw span-1-of-3">
+        <blockquote>
+          Omnifood is just awesome! I just launched a startup which leaves me with no time for cooking, so Omnifood is a
+          life-saver.
+          Now that I got used to it, I couldn't live without my daily meals!
+          <cite><img src="" alt="Customer Image"> Alberto Duncan</cite>
+        </blockquote>
+
+      </div>
+    </div>
+
+
+  </section>
+
+</body>
+
+</html>
+
+
+<!--
+  Title: Our customers can't live without us
+
+Omnifood is just awesome! I just launched a startup which leaves me with no time for cooking, so Omnifood is a life-saver. 
+Now that I got used to it, I couldn't live without my daily meals!
+(Alberto Duncan)
+
+Inexpensive, healthy and great-tasting meals, delivered right to my home. We have lots of food delivery here in Lisbon, but no one comes even close to Omifood. Me and my family are so in love!
+(Joana Silva)
+
+I was looking for a quick and easy food delivery service in San Franciso. I tried a lot of them and ended up with Omnifood. Best food delivery service in the Bay Area. Keep up the great work!
+(Milton Chapman)
+
+-->

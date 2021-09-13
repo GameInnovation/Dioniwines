@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <title>DioniWines</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+        </script>
+
+        
+
+        <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'grid.css' %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'queries.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'ionicons.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'animate.css' %}">
+
+      
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+            rel="stylesheet">
+
+        <link rel="apple-touch-icon" sizes="180x180"
+            href="{% static 'Favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32"
+            href="{% static 'Favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16"
+            href="{% static 'Favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'Favicon/site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'Favicon/safari-pinned-tab.svg' %}"
+            color="#4490a6">
+        <link rel="shortcut icon" href="{% static 'Favicon/favicon.ico' %}">
+        <meta name="msapplication-TileColor" content="#00aba9">
+        <meta name="msapplication-config"
+            content="{% static 'Favicon/browserconfig.xml' %}">
+        <meta name="theme-color" content="#e7e7e7">
+
+    </head>
+    <body>
+
+        <header>
+            <nav>
+                <div class="row js-row-1">
+
+
+
+                    <img src="{% static 'wine trimed.png' %}" alt="Dioni logo" class="logo">
+                    <img src="{% static 'wine black logo.png' %}" alt="Wine logo black" class="logo-black">
+
+
+
+
+                    <a href="{% url 'home' %}"><img class="bgflag" src="{% static 'GB.png' %}" width="35px"
+                            alt="Britain Flag"></a>
+                    <a href="{% url 'homegreek' %}"><img class="grflag" src="{% static 'GR.png' %}" width="35px"
+                            alt="Greek Flag"></a>
+
+                        <ul class="main-nav js--main-nav">
+                        <li>
+                            <a href="#cities">Shipment</a>
+
+                                {% if user.is_authenticated %}
+                            
+
+                                {% if ordersnumber.count %}
+
+                                <a href="{% url 'allmyorders' %}">My Orders ( {{ ordersnumber.count }} )
+                                </a>
+
+                                {% else %}
+
+                                <a href="{% url 'allmyorders' %}">My Orders ( 0 ) </a>
+
+                                {% endif %}
+
+                            <a href="#" style="color: chartreuse;">Hello: &nbsp; {{ user.username }}</a>
+
+                            <a style="color: red;" href="#" onclick="$('#signOutBtn').click()">LogOut</a>
+
+                            <form style='display: none;' action="{% url 'logoutuser' %}" method="POST">
+                                {% csrf_token %}
+                                <button id="signOutBtn" type="submit">Logout</button>
+                            </form>
+
+
+
+                            {% else %}
+
+
+                            <a href="{% url 'signupuser' %}">Sign Up</a>
+
+                            <a href="{% url 'loginuser' %}">Log In</a>
+
+                        </li>
+                        {% endif %}
+
+                        <br>
+
+
+
+                    </ul>
+
+                    <a class="mobile-nav-icon js--nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" id="list"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                    </a>
+
+                    <a class="mobile-nav-icon-2 js--nav-icon-2">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" id="cancel"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
+                        </svg>
+                    </a>
+
+            </div>
+
+                {% if Thanks %}
+                <div class="placedorder-gb">
+                    {{ Thanks }}
+                </div>
+                {% endif %}
+
+
+
+            </nav>
+            <div class="hero-text-box">
+                <h1>High quality.<br>Bottle Wines.</h1>
+
+                <a class="btn btn-full" href="{% url 'order' %}">Order Now</a>
+
+                <a class="btn btn-ghost js--scroll-to-start" href="#">Show me more</a>
+
+            </div>
+
+
+
+        </header>
+
+
+        <section class="section-features js--section-fatures">
+
+            <div class="row">
+
+
+               
+                <h2>Who We Are</h2>
+                <p class="long-copy">
+                    Hello, we’re Dioniwine, your new premium bottle wine delivery service.
+                    We know you need a premium wine for your self or your restaurant.
+                    So let us take care of that, we’re really good at it, we promise!
+                </p>
+            </div>
+
+            <div class="row js--wp-1">
+                <div class="col span-1-of-4 box">
+
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-calendar3 icon-big-calendar"
+                        viewBox="0 0 16 16" style="margin-top: 0%;">
+                        <path
+                            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                        <path
+                            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                    </svg>
+
+                    <h3>Up to 365 days/year</h3>
+                    <p>
+                        Lock your premium wine once for ever! We really mean that. Our subscription plans include up to 365
+                        days/year
+                        coverage.
+                        You can also choose to order more flexibly if that's your style.
+                    </p>
+                </div>
+
+
+                <div class="col span-1-of-4 box">
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-clock icon-big"
+                        viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                    </svg>
+
+
+                    <h3>Within 2 days</h3>
+                    <p>
+                        You're only 2 days away at most from your new premium wine delivered right to your door. We
+                        work with
+                        the best chemists in each town to ensure that you're 100% happy.
+                    </p>
+                </div>
+
+                <div class="col span-1-of-4 box">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-egg icon-big"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 15a5 5 0 0 1-5-5c0-1.956.69-4.286 1.742-6.12.524-.913 1.112-1.658 1.704-2.164C7.044 1.206 7.572 1 8 1c.428 0 .956.206 1.554.716.592.506 1.18 1.251 1.704 2.164C12.31 5.714 13 8.044 13 10a5 5 0 0 1-5 5zm0 1a6 6 0 0 0 6-6c0-4.314-3-10-6-10S2 5.686 2 10a6 6 0 0 0 6 6z" />
+                    </svg>
+
+                    <h3>100% organic</h3>
+                    <p>
+                        All our wines are biological, organic and local. We cultivate our vines without added fertilizers.
+                        Good for your
+                        health, the environment, and it also tastes better!
+                    </p>
+                </div>
+
+                <div class="col span-1-of-4 box">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-credit-card icon-big"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" />
+                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z" />
+                    </svg>
+
+                    <h3>Order anything</h3>
+                    <p>
+                        We don't limit your creativity, which means you can order whatever you feel like. You can also
+                        choose from our
+                        menu
+                        containing over 20 premium bottles. It's up to you!
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="section-meals js--section-meals">
+            <ul class="meals-showcase clearfix">
+
+                <li>
+                    <figure class="meal-photo">
+
+                        <img src="\media\images\1.jpg" alt="vineyard 1">
+
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\2.jpg" alt="vineyard 2">
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\3.jpg" alt="Bottle Wall">
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\4.jpg" alt="Bottel Barrel">
+                    </figure>
+                </li>
+
+            </ul>
+
+            <ul class="meals-showcase clearfix">
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\5.jpg" alt="Dark Bottle bunches of grapes">
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\6.jpg" alt="Drinks Glasses bunches of grapes">
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\7.jpg" alt="Wall Bottle 2">
+                    </figure>
+                </li>
+
+                <li>
+                    <figure class="meal-photo">
+                        <img src="\media\images\8.jpg" alt="Wall Bottle 3"> 
+                    </figure>
+                </li>
+
+            </ul>
+
+
+        </section>
+
+        <section class="section-steps">
+
+            <div class="row">
+                <h2>How it works &mdash; Simple as 1, 2, 3</h2>
+            </div>
+
+            <div class="row">
+                <div class="col span-1-of-2 steps-box">
+                    <img src="{% static 'app-iphone.png' %}" alt="DioniWines app on iPhone" class="app-screen js--wp-2">
+                </div>
+
+                <div class="col span-1-of-2 steps-box">
+
+                    <div class="works-step">
+                        <div>1</div>
+                        <p>Choose the subscription plan that best fits your needs and sign up today.</p>
+                    </div>
+
+                    <div class="works-step">
+                        <div>2</div>
+                        <p>Order your premium bottles using our mobile app or website. Or you can even call us!</p>
+                    </div>
+
+                    <div class="works-step">
+                        <div>3</div>
+                        <p>Enjoy your wine after less than 2 days. See you the next time!</p>
+                    </div>
+
+                    <a href="#" class="btn-app"><img src="{% static 'download-app.svg' %}" alt="App Store Button"></a>
+                    <a href="#" class="btn-app"><img src="{% static 'download-app-android.png' %}"
+                            alt="Play Store Button"></a>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section-cities" id='cities'>
+
+            <div class="row ">
+                <h2>We're currently in these cities</h2>
+            </div>
+
+            <div class="row js--wp-3">
+
+             
+
+
+
+                {% for detail in restaurant_details %}
+
+                <div class="col span-1-of-4 box">
+
+                    <img src={{ detail.city_photo.url }} alt="City Name">
+
+                    <h3>{{ detail.city_name }}</h3>
+
+                    <div class="city-feature">
+                      
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill icon-small"
+                            viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+
+                        {{ detail.person_clients }}
+
+
+                    </div>
+
+                    <div class="city-feature">
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star-fill icon-small"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        {{ detail.top_chefs }}
+                    </div>
+
+                    <div class="city-feature">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-twitter icon-small"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                        </svg>
+                        <a href="#">{{ detail.twitter }}</a>
+
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+        </section>
+
+        <section class="section-testimonials">
+            <div class="row">
+                <h2>Our customers can't live without us</h2>
+            </div>
+
+            <div class="row">
+                {% for feedback in feedbacks %}
+
+                <div class="col span-1-of-3">
+
+                    {% if feedback.show %}
+                    <blockquote>
+                        <p>
+
+                            {{ feedback.feedback|safe }}
+                        </p>
+
+                        <cite><img src='{{ feedback.customer_photo.url }}' alt="Customer Image">{{
+                            feedback.customer_first_name|safe }} {{ feedback.customer_second_name|safe }}</cite>
+                    </blockquote>
+                    {% endif %}
+
+                </div>
+
+
+
+                {% endfor %}
+            </div>
+
+        </section>
+
+        <section class="section-plans">
+            <div class="row">
+                <h2>Start with our premium wines today</h2>
+            </div>
+            <div class="row">
+
+                <div class="col span-1-of-3">
+                    <div class="plan-box js--wp-4">
+                       
+                        <div>
+                            <h3>Premium</h3>
+                            <p class="plan-price">$399 <span>/ month</span></p>
+                            <p class="plan-price-meal">That's only 13.30$ per crate (6 Bottles)</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    1 crate per day
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    order 24/7
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    Acces to newest creations
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    Free delivery
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-full">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col span-1-of-3">
+                    <div class="plan-box">
+                        <div>
+                            <h3>Pro</h3>
+                            <p class="plan-price">$149 <span>/ month</span></p>
+                            <p class="plan-price-meal">That's only 14.90$ per crate (6 Bottles)</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    1 crate 10 days/month
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    order 24/7
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    Acces to newest creations
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    Free delivery
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-ghost">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col span-1-of-3">
+                    <div class="plan-box">
+                        <div>
+                            <h3>Starter</h3>
+                            <p class="plan-price">$19 <span>/ wine crate</span></p>
+                            <p class="plan-price-meal">&nbsp;</p>
+                        </div>
+                        <div>
+                            <ul>
+
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    1 wine crate (6 bottles)
+                                </li>
+
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+
+                                    order from 8 am to 12 pm
+                                </li>
+
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-x icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </li>
+
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-check2 icon-small" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                    Free delivery
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-ghost">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    
+
+        <section class="section-form">
+            <div class="row">
+                <h2>We're happy to hear from you</h2>
+            </div>
+
+            <div class="row">
+                <form method="POST" action="#" class="contact-form">
+
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="name">Name</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <input type="text" name="name" id="name" placeholder="Your name" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="email">Email</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <input type="email" name="email" id="email" placeholder="Your email" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="find-us">How did you find us?</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <select name="find-us" id="find-us">
+                                <option value="friends">Friends</option>
+                                <option value="search" selected>Search engine</option>
+                                <option value="id">Advertisement</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>Newsletter</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <input type="checkbox" name="news" id="news" checked> Yes
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="message">Drop us a line</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <textarea name="message" placeholder="Your message"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>&nbsp;</label>
+                        </div>
+
+                        <div class="col span-2-of-3">
+                            <input type="submit" value="Send it!" class="send-it">
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+
+            </div>
+        </section>
+
+
+        <footer>
+
+            <div class="row">
+                <div class="col span-1-of-2">
+                    <ul class="footer-nav">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">iOS App</a></li>
+                        <li><a href="#">Android App</a></li>
+
+                    </ul>
+                </div>
+                <div class="col span-1-of-2">
+                    <ul class="social-links">
+
+                        <li><a href="#">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-facebook" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                </svg>
+
+                            </a>
+                        </li>
+                        <li><a href="#">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-twitter" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                </svg>
+
+                            </a>
+                        </li>
+                        <li><a href="#">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-google" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                                </svg>
+
+                            </a>
+                        </li>
+                        <li><a href="#">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-instagram" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                                </svg>
+
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <p>
+                    Copyright &copy; 2015 by DioniWines. All rights reserved.
+                </p>
+            </div>
+
+        </footer>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+        <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+        <script src="{% static 'Javascript/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'Javascript/script.js' %}"></script>
+
+    </body>
+
+</html>

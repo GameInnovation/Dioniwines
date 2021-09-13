@@ -1,0 +1,105 @@
+{% extends 'web/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'grid.css' %}"> 
+
+  <link rel="stylesheet" type="text/css" href="{% static 'allmyfeedback4.css' %}">
+  
+  <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"  
+      rel="stylesheet">
+
+    <title>DioniWines</title>
+
+</head>
+
+<body>
+<div class="col span-1-of-2 box">
+  <!-- <div class="row justify-content-center mt-5">
+    <div class="col-md-10"> -->
+      <div class="container-md">
+
+        <div class="row">
+          <div class="form">
+
+              
+            
+            <form method="GET" action="#">
+              
+              <div class="form-style">
+                
+                {% if saved %}
+                
+                <div class="alert-saved">
+                  <h1>
+                    {{ saved }}
+                  </h1>
+                </div>
+                {% endif %}
+                
+                <br> <br>
+                
+                {% if orders %}
+                <div class="alert">
+                  <h1>{{ orders.count }} Current Order{{ orders.count|pluralize }}</h1>
+                  {% else %}
+                  
+                  <h1>You Have Not Placed Any Orders Yet</h1>
+                </div>
+                
+                {% endif %}
+                
+              </div>
+              
+              <br>
+              
+              {% for order in orders %}
+              <a href="{% url 'vieworder' order.id %}">
+                <ul>
+                  
+                  <li>
+                    
+                    <div class="btn">
+                      
+                      {{ order.order_description }}
+                      
+                    </div>
+                    
+                  </li>
+                </ul>
+              </a>
+              {% endfor %}
+              
+              
+            </div>
+            
+            
+            
+          </form>
+        </div>
+        
+        <!-- </div>
+        </div>-->
+        
+      </div>
+      
+  </div>
+    </body>
+    
+    </html>
+    {% endblock %}

@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /*font-family: 'Lato', sans-serif;*/
+}
+
+html {
+  background-color: #fff;
+  color: rgb(59, 59, 59);
+  font-family: "Lato", 'Arial', 'sans-serif';
+  font-weight: 300;
+  font-size: 20px;
+  text-rendering: optimizeLegibility;
+}
+
+
+html {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url("/static/22.jpg");
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/static/22.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/static/22.jpg"); /* Backround image */
+  background-attachment: fixed; /* It Keeps Steady The Background Image */
+  /*background: url("/static/hero.jpg") 50% 0 no-repeat fixed;*/
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+}
+
+.content {
+  margin-top: -2%;
+  color: rgb(175, 174, 174);
+  position: absolute;
+  width: 1140px;
+  
+  top: 55%;
+  left: 70%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+
+/* BUTTONS */
+
+.btnn:link, /* Για να μην αλλλάξει οψη το Link μετά απο το click κάνουμε :Link */ 
+.btnn:visited
+{
+   /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+  
+  font-weight: 300;
+  text-decoration: none;
+  border: 1px solid rgb(255, 255, 255);
+  -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+  -o-transition: background-color 0.2s, border 0.2s, color 0.2s;
+  transition: background-color 0.2s, border 0.2s, color 0.2s;
+  
+}
+  
+.btnn:hover,
+.btnn:active 
+{
+  border: 1px solid rgb(44, 44, 44);
+  /*color: black;*/
+}

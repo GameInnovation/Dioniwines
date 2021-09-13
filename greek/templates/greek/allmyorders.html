@@ -1,0 +1,176 @@
+{% extends 'greek/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'grid.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'allmyfeedback4.css' %}">
+
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+  <title>DioniWines</title>
+
+</head>
+
+<body>
+  <div class="col span-1-of-4 box">
+    <!-- <div class="row justify-content-center mt-5">
+    <div class="col-md-10"> -->
+    <div class="container-md">
+
+      <div class="row">
+        <div class="form">
+
+
+
+          <form method="GET" action="#">
+
+            <div class="form-style">
+
+              {% if saved %}
+
+              <div class="alert-saved">
+                <h1>
+                  {{ saved }}
+                </h1>
+              </div>
+              {% endif %}
+
+              <br> <br>
+
+              {% if orders %}
+              
+              <!-- <h1>{{ feeddbacks.count }} Οι Κριτικές Σας{{ feeddbacks.count|pluralize }}</h1> -->
+              {% if orders.count > 1 %}
+              <div class="hero-text-box" style="
+                                      display: inline-block; /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+                                      padding: 10px 30px;
+                                      
+                                      font-weight: 300;
+                                      text-decoration: none;
+                                      /* border-radius: 200px;*/
+                                      transition: background-color 0.2s, border 0.2s, color 0.2s;
+                                      
+                                      top: 26%; 
+                                      color: rgb(12, 12, 12);
+                                      text-decoration: none;
+                                      text-transform: uppercase;
+                                      font-size: 90%;
+                                
+                                      background-color: #34a853f6;
+                                      border: 1px solid #34a853fa;
+                                
+                                
+                                      ">
+                <h1>Eχετε κανει {{ orders.count }} παραγγελιες</h1>
+              </div>
+              {% endif %}
+              
+              {% if orders.count == 1 %}
+              <div class="hero-text-box" style="
+                                      display: inline-block; /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+                                      padding: 10px 30px;
+                                      
+                                      font-weight: 300;
+                                      text-decoration: none;
+                                      /* border-radius: 200px;*/
+                                      transition: background-color 0.2s, border 0.2s, color 0.2s;
+                                      
+                                      top: 26%; 
+                                      color: rgb(12, 12, 12);
+                                      text-decoration: none;
+                                      text-transform: uppercase;
+                                      font-size: 90%;
+                                
+                                      background-color: #34a853fa;
+                                      border: 1px solid #34a853f6;
+                                
+                                
+                                      ">
+                <h1>Eχετε μια παραγγελια</h1>
+              </div>
+              {% endif %}
+              
+              {% else %}
+              
+              <div style="
+                                      display: inline-block; /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+                                      padding: 10px 30px;
+                                      
+                                      font-weight: 300;
+                                      text-decoration: none;
+                                      /* border-radius: 200px;*/
+                                      transition: background-color 0.2s, border 0.2s, color 0.2s;
+                                      
+                                      top: 26%; 
+                                      color: rgb(12, 12, 12);
+                                      text-decoration: none;
+                                      text-transform: uppercase;
+                                      font-size: 90%;
+                                
+                                      background-color: #34a853;
+                                      border: 1px solid #34a853fb;
+                                
+                                
+                                      ">
+              
+                <h1>Δεν εχετε αφησει καμια παραγγελια ακομα</h1>
+              </div>
+              
+              {% endif %}
+
+            </div>
+
+            <br>
+
+            {% for order in orders %}
+            <a href="{% url 'greekvieworder' order.id %}">
+              <ul>
+
+                <li>
+
+                  <div class="btn">
+
+                    {{ order.order_description }}
+
+                  </div>
+
+                </li>
+              </ul>
+            </a>
+            {% endfor %}
+
+
+        </div>
+
+
+
+        </form>
+      </div>
+
+      <!-- </div>
+        </div>-->
+
+    </div>
+
+  </div>
+</body>
+
+</html>
+{% endblock %}

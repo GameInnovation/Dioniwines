@@ -1,0 +1,181 @@
+{% extends 'web/base.html' %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'viewfeedback.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '1.3 grid.css' %}">
+
+  <!--GOOGLE Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+  <title>Omnifood</title>
+
+
+</head>
+
+<body>
+  <div class="content">
+
+    <a href="{% url 'viewdeletedfeedback' viewfeeddbacks.id %}"><img style="border: 2px solid #39e622; margin-top: 3%; text-decoration:none;" src="{% static 'GB.png' %}" width="3%"
+        height="3%" alt="Britain Flag">
+    </a>
+    
+    <a href="{% url 'greekviewdeletedfeedback' viewfeeddbacks.id %}"><img
+        style="font-weight: 300; margin-left: 2%; margin-top: 3%; text-decoration:none;"
+        src="{% static 'GR.png' %}" width="3%" height="3%" alt="Greek Flag"></a>
+
+
+    {{ error }}
+    {{ saved }}
+    <br><br>
+    <h1 style="color: rgb(180, 179, 179);">Created On: {{ viewfeeddbacks.created }}</h1>
+    <br>
+
+    <br>
+    {% if viewfeeddbacks.customer_photo %}
+
+    <!-- όχι URL όταν μπαίνει σε IF Statment -->
+    <!-- / στο path αλλιώς δεν παίζει η photo -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    
+      <div class="form-group">
+        <img src="{{ viewfeeddbacks.customer_photo.url }}" width="10%" alt="customer photo"> 
+        
+        <br>
+        <br>
+        <label>Your Photo</label>
+        <small id="usernameHelp" class="form-text text-muted">Upload Your Photo Here.Optional.</small> <br>
+        <div class="photo-uploaded">
+          {{ form.customer_photo }}
+        </div>
+      </div>
+
+    <br>
+      <label>First Name</label>
+      <div class="name" style="margin-left: 3.1%;">
+        {{ form.customer_first_name }}
+      </div>
+      <br>
+      <br>
+      <label>Second Name</label>
+      <div class="name" style="margin-left: 1.3%;">
+        {{ form.customer_second_name }}
+      </div>
+      <br>
+      <br>
+      <label>Feedback Title</label>
+      <div style="color: black;">
+        {{ form.feedback_description }}
+      </div>
+      <br>
+      <br>
+      <label>Feedback Description</label>
+    
+      <div style="color: black;">
+        {{ form.feedback }}
+      </div>
+      <br>
+      <br>
+      <div class="form">
+        Delete: {{ form.deleted }}
+      </div>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      
+    
+    </form>
+    <br>
+
+    {% else %}
+
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <img src="/media/customer/default.jpg" width="10%" alt="customer photo"> 
+        <br>
+        <br>
+        <label >Your Photo</label>
+        <small id="usernameHelp" class="form-text text-muted">Upload Your Photo Here.Optional.</small> <br>
+        <div class="photo">
+
+          {{ form.customer_photo }}
+        </div>
+      </div>
+        
+
+      
+      <br>
+      <label >First Name</label>
+      <div class="name" style="margin-left: 3.1%;">
+        {{ form.customer_first_name }}
+      </div>
+      <br>
+      <br>
+      <label>Second Name</label>
+      <div class="name" style="margin-left: 1.3%;">
+        {{ form.customer_second_name }}
+      </div>
+      <br>
+      <br>
+      <label>Feedback Title</label>
+      <div style="color: black;">
+        {{ form.feedback_description }}
+      </div>
+      <br>
+      <br>
+      <label>Feedback Description</label>
+
+      <div style="color: black;">
+        {{ form.feedback }}
+      </div>
+      <br>
+      <br>
+      <div class="form">
+        Delete: {{ form.deleted }}
+      </div>
+
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      
+
+    </form>
+    <br>
+
+    {% endif %}
+
+    <form method="POST" onsubmit="return confirm('Are You Sure ?')"
+      action="{% url 'deletefeedback' viewfeeddbacks.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Delete For EVER</button>
+      
+    </form>
+
+
+
+  </div>
+  {% endblock %}
+
+</body>
+
+</html>

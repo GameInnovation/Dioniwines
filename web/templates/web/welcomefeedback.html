@@ -1,0 +1,15 @@
+<a href="{% url 'home' %}">Home</a>
+
+<h1>Your Account Just Created</h1>
+
+<h1 style="color: black;">Leave Feedback</h1>
+
+
+<form method="POST" enctype="multipart/form-data">
+  <!-- Τη μέθοδο την κανουμε POST γιατι θα στείλουμε δεδομένα στον Server με αυτη τη φόρμα -->
+  {% csrf_token %}
+  {{ form.as_p }}
+  
+  <button type="submit">Leave Feedback</button>
+
+</form>

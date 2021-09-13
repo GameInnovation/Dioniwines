@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /*font-family: 'Lato', sans-serif;*/
+}
+
+html {
+  background-color: #fff;
+  color: rgb(59, 59, 59);
+  font-family: "Lato", 'Arial', 'sans-serif';
+  font-weight: 300;
+  font-size: 20px;
+  text-rendering: optimizeLegibility;
+}
+
+
+html {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url("/static/WineDark.jpg");
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/static/WineDark.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/static/WineDark.jpg"); /* Backround image */
+  background-attachment: fixed; /* It Keeps Steady The Background Image */
+  /*background: url("/static/hero.jpg") 50% 0 no-repeat fixed;*/
+  background-size: cover;
+  background-position: center;
+  height: 170vh;
+}
+
+.content {
+  
+  margin: 0;
+  color: rgb(175, 174, 174);
+  position: absolute;
+  width: 1140px;
+  top: 70%;
+  left: 70%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+
+.form {
+  color: rgb(199, 199, 199); 
+  display: inline-block; 
+  padding: 10px; 
+  background-color: red;
+}
+
+.photo {
+  color: rgb(199, 199, 199); 
+  display: inline-block; 
+  padding: 10px; 
+  background-color: rgb(143, 142, 142);
+}
+
+.photo-uploaded {
+  color: rgb(199, 199, 199); 
+  display: inline-block; 
+  padding: 10px; 
+  background-color: teal; 
+}  

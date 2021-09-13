@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">-->
+  
+  <!--<link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">-->
+  
+  <!--<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">-->
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'ionicons.min.css' %}">-->
+  
+  <!--<link rel="preconnect" href="https://fonts.googleapis.com">-->
+  <!--<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+  <!--<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"> -->
+  
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+  </script>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default" style="background-color: #b3aeaa; border-color: #918f8e; position: fixed; z-index: 9999;"> <!-- Οποσδήποτε Z-idex για να μην επικαλύπτει το body -->
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">DioniWines</a>
+      </div>
+
+      <ul class="nav navbar-nav">
+
+        <li class="active"><a href="{% url 'home' %}" style="background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(80, 80, 80);" >Home</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'feedback' %}" style="background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(80, 80, 80);">New Feedback</a></li>
+
+        
+
+
+        <li>
+          
+          {% if feedbacksnumber %}
+          <a href="{% url 'allmyfeedback' %}" style="color: rgb(80, 80, 80);">All My Feedback ( {{ feedbacksnumber.count }} )</a>
+          {% endif %}
+        
+        </li>
+
+        <li><a href="{% url 'deletedfeedback' %}"
+            style="background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(80, 80, 80);">Deleted Feedback</a></li>
+
+        <li><a href="{% url 'order' %}" style="background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(80, 80, 80);">New
+            Order</a></li>
+
+
+        <li>
+        
+         
+          <a href="{% url 'allmyorders' %}" style="color: rgb(80, 80, 80);">My Orders ( {{ ordersnumber.count }} )</a>
+         
+        
+        </li>
+        
+        
+        
+
+        <li><a href="{% url 'deletedorders' %}" style="background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(80, 80, 80);">Deleted Orders ( {{deletedorders.count}} )</a></li>
+        
+        {% endif %}
+        
+        
+        
+
+        {% if user.is_authenticated %}
+        
+          <li class="nav-item">
+            <li class="active"><a href="#" style="font-size: 100%; background-color: #b3aeaa; border-color: #b3aeaa; color: rgb(54, 214, 33);">User : {{ user.username }}</a></li>
+          </li>
+        
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        
+        <li class="nav-item">
+        
+          <a href="#" onclick="$('#signOutBtn').click()" class="nav-link"
+            style="size: 100%; font-size: 100%; background-color: #ff0808; border-color: #ff0000; color: cornsilk;">Logout</a>
+        
+          <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+            {% csrf_token %}
+            <button id="signOutBtn" type="submit">Logout</button>
+          </form>
+        </li>
+        
+        {% endif %}
+        
+        {% if english_order %}
+        
+        {% if vieworders %}
+          <li class="nav-item">
+            <a href="{% url english_order vieworders.id %}"><img style="border: 2px solid #39e622;" src="{% static 'GB.png' %}" width="35px" alt="English"></a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url greek_order vieworders.id %}"><img src="{% static 'GR.png' %}" width="35px" alt="Greek"></a>
+          </li>
+        </ul>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url english_order %}"><img style="border: 2px solid #39e622;" src="{% static 'GB.png' %}" width="35px" alt="English"></a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url greek_order %}"><img src="{% static 'GR.png' %}" width="35px" alt="Greek"></a>
+        </li>
+        </ul>
+        {% endif %}
+        {% endif %}
+
+        
+      </div>
+  </nav>
+</body>
+
+
+<!-- Hello {{ user.username }} <br><br>-->
+
+{% block content %}{% endblock %}
+</html>

@@ -1,0 +1,177 @@
+{% extends 'web/base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" >
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'feedbackstyle.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '1.3 grid.css' %}">
+
+  <!--GOOGLE Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>DioniWines</title>
+</head>
+
+<body>
+  <header>
+
+
+    <!-- <a href="{% url 'home' %}">Home</a> -->
+
+  </header>
+  
+  <div class="content" style="left: 75%; zoom: 110%;">
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+
+    <a href="{% url 'feedback' %}"><img
+        style="margin-top: 3%; border: 2px solid #39e622; text-decoration:none;" src="{% static 'GB.png' %}" width="3%"
+        height="3%" alt="Britain Flag">
+    </a>
+
+    <a href="{% url 'greekfeedback' %}"><img
+        style="font-weight: 300; margin-left: 2%; margin-top: 3.1%; text-decoration:none;" src="{% static 'GR.png' %}"
+        width="3%" height="3%" alt="Greek Flag">
+      </a>
+
+      <br>
+      <br>
+
+    <div class="hero-text-box" style="
+                        display: inline-block; /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+                        padding: 10px 30px;
+                        
+                        font-weight: 300;
+                        text-decoration: none;
+                        /* border-radius: 200px;*/
+                        transition: background-color 0.2s, border 0.2s, color 0.2s;
+                        
+                        top: 26%; 
+                        color: rgb(12, 12, 12);
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        font-size: 90%;
+                  
+                        background-color: #34a853;
+                        border: 1px solid #34a853cc;
+                        
+                  
+                  
+                        ">
+    <h1 style="color: rgb(65, 65, 65);">Leave Feedback</h1>
+  </div>
+    <!-- <form method="POST" enctype="multipart/form-data"> -->
+
+    <form method="POST" enctype="multipart/form-data">
+      <!-- Τη μέθοδο την κανουμε POST γιατι θα στείλουμε δεδομένα στον Server με αυτη τη φόρμα -->
+      {% csrf_token %}
+
+      <!-- <img src="/media/customer/default.jpg" width="10%" alt="customer photo">--> <br>
+
+      <label>Your Photo</label>
+      <small id="usernameHelp" class="form-text text-muted">Upload Your Photo Here.Optional.</small><br>
+
+      <div style="
+            color: rgb(199, 199, 199); 
+            display: inline-block; 
+            padding: 10px; 
+            background-color: teal">
+            {{ form.customer_photo }}
+      </div>
+     
+
+
+      <br><br>
+      
+      <div class="form-group">
+
+        <label>Your First Name</label>
+        
+        <div style=
+              "
+              margin-left: 3.1%;
+              box-sizing: border-box;
+              color: rgb(27, 27, 27);  
+              display: inline; 
+              padding: 10px; 
+              background-color: teal;
+              ">
+          {{ form.customer_first_name }}
+        
+        </div>
+
+      </div>
+
+      
+      <label>Your Second Name</label>
+      <div style="
+            margin-left: 1.3%;
+            box-sizing: border-box;
+            color: rgb(27, 27, 27);  
+            display: inline; 
+            padding: 10px; 
+            background-color: teal;
+      
+            ">
+        {{ form.customer_second_name }}
+      </div>
+
+      <br>
+      <br>
+      <label>Feedback Title</label>
+      <div style="color: black;">
+        {{ form.feedback_description }}
+      </div>
+
+      <br>
+      <br>
+      <label>Feedback Description</label>
+
+      <div style="color: black;">
+        {{ form.feedback }}
+      </div>
+
+      <br>
+      <br>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+
+      
+
+      <!-- <button type="submit">Leave Feedback</button> -->
+
+    </form>
+
+  </div>
+  </div>
+  </div>
+
+
+  {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+{% extends 'greek/base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '1.3 grid.css' %}">
+
+  <!--GOOGLE Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS 
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+              
+              <link rel="icon" type="image/png" href="{% static 'todo/logo.png' %}"> -->
+
+  <title>DioniWines</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'Favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'Favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'Favicon/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'Favicon/safari-pinned-tab.svg' %}" color="#4490a6">
+  <link rel="shortcut icon" href="{% static 'Favicon/favicon.ico' %}">
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="msapplication-config" content="{% static 'Favicon/browserconfig.xml' %}">
+  <meta name="theme-color" content="#e7e7e7">
+
+
+
+
+</head>
+
+
+<body>
+
+  
+
+
+
+  <div class="content">
+  
+    
+    
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-5">
+        
+        <a href="{% url 'signupuser' %}"><img  src="{% static 'GB.png' %}" width="8%" alt="Britain Flag"></a>
+
+        <a href="{% url 'greeksignupuser' %}"><img style="border: 3px solid #39e622; margin-left: 6%;" src="{% static 'GR.png' %}" width="8%" alt="Greek Flag">
+        </a>
+
+
+
+        <h2 style="margin-top: 5%;">ΕΓΓΡΑΦΗ</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-5">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+            <small id="usernameHelp" class="form-text text-muted">To username σας πρέπει να είναι μοναδικό. Θα σας ενημερώσουμε αν το user σας, χρησιμοποιείται από άλλο χρήστη.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" name="password1" class="form-control" id="password1">
+          </div>
+
+
+          <div class="form-group">
+            <label for="password2">Επιβεβαίωση Password</label>
+            <input type="password" name="password2" class="form-control" id="password2">
+          </div>
+          <button type="submit" class="btn btn-primary">ΕΓΓΡΑΦΗ</button>
+        
+        </form>
+
+        <hr>
+        <div class="text-center">
+          Έχετε ήδη λογαρισμό; <a href="{% url 'greekloginuser' %}">Συνδεση εδώ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
+{% endblock %}

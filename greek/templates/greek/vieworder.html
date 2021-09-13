@@ -1,0 +1,502 @@
+{% extends 'greek/base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'vieworder.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static '1.1 grid.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '1.3 grid.css' %}">
+
+  <!--GOOGLE Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>DioniWines</title>
+</head>
+
+<body>
+  <header>
+
+
+    <!-- <a href="{% url 'home' %}">Home</a> -->
+
+  </header>
+
+  <div class="content" style="zoom: 125%; margin-top: 7%;">
+
+    
+
+
+
+    <!-- <form method="POST" enctype="multipart/form-data"> -->
+    <br> <br>
+
+    <div class="hero-text-box" style="
+            display: inline-block; /* Αλλάζουμε το a απο inline Element σε Inline Block για να μπορεί να δεχτεί padding και font-weight*/
+            padding: 10px 30px;
+            
+            font-weight: 300;
+            text-decoration: none;
+            /* border-radius: 200px;*/
+            transition: background-color 0.2s, border 0.2s, color 0.2s;
+            
+            top: 26%; 
+            color: rgb(12, 12, 12);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 90%;
+      
+            background-color: #34a853c2;
+            border: 1px solid #34a853cc;
+      
+      
+            ">
+
+
+      Αυτη η παραγγελια εγινε {{ vieworders.placed }}
+
+    </div>
+
+    <br>
+    <br>
+
+
+
+    <style>
+      #id_customer_first_name {
+        width: 30%;
+      }
+
+      #id_customer_second_name {
+        width: 30%;
+      }
+
+      #id_town {
+        width: 30%;
+      }
+
+      #id_address {
+        width: 30%;
+      }
+
+      #id_postalcode {
+        width: 30%;
+      }
+
+      #id_order_description {
+        width: 30%;
+      }
+
+      #id_order {
+        width: 30%;
+      }
+    </style>
+
+
+
+    {% if vieworders.customer_photo %}
+    <!--With Photo-->
+
+    <form method="POST" enctype="multipart/form-data">
+      <!-- Τη μέθοδο την κανουμε POST γιατι θα στείλουμε δεδομένα στον Server με αυτη τη φόρμα -->
+      {% csrf_token %}
+
+      <div class="form-group">
+        <img src="{{ vieworders.customer_photo.url }}" width="10%" alt="customer photo">
+
+        <br> <br>
+
+        <label>Η Φωτογραφία σου</label>
+        <small id="usernameHelp" class="form-text text-muted">Ανέβασε τη φωτογραφία σου εδώ.Προαιρετικό.</small><br>
+
+        <div style="
+            
+            color: rgb(199, 199, 199); 
+            display: inline-block; 
+            padding: 10px; 
+            background-color: teal">
+
+
+          {{ form.customer_photo }}
+
+        </div>
+      </div>
+
+
+
+      <br>
+
+
+
+      <label>Όνομα</label>
+
+
+      <div style="
+            
+            margin-left: 7.5%;
+            box-sizing: border-box;
+            color: rgb(27, 27, 27);  
+            display: inline; 
+            padding: 10px; 
+            background-color: teal;
+      
+            ">
+
+        {{ form.customer_first_name }}
+      </div>
+
+
+
+      <br>
+      <br>
+
+
+
+      <label>Επίθετο</label>
+
+
+      <div style="
+            
+            margin-left: 6.8%;
+            box-sizing: border-box;
+            color: rgb(27, 27, 27);  
+            display: inline; 
+            padding: 10px; 
+            background-color: teal;
+      
+            ">
+        {{ form.customer_second_name }}
+      </div>
+
+      <br>
+      <br>
+      <label for="country">Χώρα</label>
+      <div style="
+            margin-left: 8.1%;
+            color: rgb(26, 26, 26); 
+            display: inline-block; 
+            padding: 10px; 
+            background-color: teal">
+
+        {{ form.country }}
+      </div>
+
+      <br>
+      <br>
+
+      <label>Πόλη</label>
+
+      <div style="
+                  margin-left: 8.3%;
+                  box-sizing: border-box;
+                  color: rgb(27, 27, 27);  
+                  display: inline; 
+                  padding: 10px; 
+                  background-color: teal;
+            
+                  ">
+        {{ form.town }}
+      </div>
+
+      <br>
+      <br>
+      <label>Διεύθυνση</label>
+
+      <div style="
+                        margin-left: 5.3%;
+                        box-sizing: border-box;
+                        color: rgb(27, 27, 27);  
+                        display: inline; 
+                        padding: 10px; 
+                        background-color: teal;
+                  
+                        ">
+        {{ form.address }}
+      </div>
+      <br>
+      <br>
+
+      <label>Ταχυδρομικός <br> Κώδικας (Τ.Κ)</label>
+
+      <div style="
+        margin-left: 3.2%;
+        box-sizing: border-box;
+        color: rgb(27, 27, 27);  
+        display: inline; 
+        padding: 10px; 
+        background-color: teal;
+
+        ">
+        {{ form.postalcode }}
+      </div>
+
+
+      <br>
+      <br>
+      <label>Περιγραφή Παραγγελίας</label> <br> <br>
+      <div style="
+            margin-left: 3%;
+            box-sizing: border-box;
+            color: rgb(27, 27, 27);  
+            display: inline; 
+            padding: 10px; 
+            background-color: teal;
+      
+            ">
+
+        {{ form.order_description }}
+      </div>
+
+      <br>
+      <br>
+      <label>Παραγγελία</label> <br>
+
+      <div style="
+            margin-left: 3%;
+            color: rgb(27, 27, 27);  
+          ">
+
+        {{ form.order }}
+      </div>
+      <br>
+      <br>
+
+      <div class="form">
+      ΠΡΟΣΩΡΙΝΟ ΣΒΗΣΙΜΟ : {{ form.deleted }}
+      </div>
+
+      <br>
+      <br>
+
+      <button type="submit" class="btn btn-primary">ΑΠΟΘΗΚΕΥΣΗ ΑΛΛΑΓΩΝ</button>
+
+
+
+      <!-- <button type="submit">Leave Feedback</button> -->
+
+    </form>
+    <br>
+
+
+    {% else %}
+
+    <form method="POST" enctype="multipart/form-data">
+      <!-- Τη μέθοδο την κανουμε POST γιατι θα στείλουμε δεδομένα στον Server με αυτη τη φόρμα -->
+      {% csrf_token %}
+
+      <div class="form-group">
+        <img src="/media/customer/default.jpg" width="10%" alt="customer photo">
+
+        <br> <br>
+
+
+        <label>Η Φωτογραφία σου</label>
+        <small id="usernameHelp" class="form-text text-muted">Upload Your Photo Here.Optional.</small><br>
+
+        <div style="
+                    
+                    color: rgb(199, 199, 199); 
+                    display: inline-block; 
+                    padding: 10px; 
+                    background-color: teal">
+        
+        
+          {{ form.customer_photo }}
+        
+        </div>
+        </div>
+        
+        
+        
+        <br>
+        
+        
+        
+        <label>Όνομα</label>
+        
+        
+        <div style="
+                    
+                    margin-left: 7.5%;
+                    box-sizing: border-box;
+                    color: rgb(27, 27, 27);  
+                    display: inline; 
+                    padding: 10px; 
+                    background-color: teal;
+              
+                    ">
+        
+          {{ form.customer_first_name }}
+        </div>
+        
+        
+        
+        <br>
+        <br>
+        
+        
+        
+        <label>Επίθετο</label>
+        
+        
+        <div style="
+                    
+                    margin-left: 6.8%;
+                    box-sizing: border-box;
+                    color: rgb(27, 27, 27);  
+                    display: inline; 
+                    padding: 10px; 
+                    background-color: teal;
+              
+                    ">
+          {{ form.customer_second_name }}
+        </div>
+        
+        <br>
+        <br>
+        <label for="country">Χώρα</label>
+        <div style="
+                    margin-left: 8.1%;
+                    color: rgb(26, 26, 26); 
+                    display: inline-block; 
+                    padding: 10px; 
+                    background-color: teal">
+        
+          {{ form.country }}
+        </div>
+        
+        <br>
+        <br>
+        
+        <label>Πόλη</label>
+        
+        <div style="
+                          margin-left: 8.3%;
+                          box-sizing: border-box;
+                          color: rgb(27, 27, 27);  
+                          display: inline; 
+                          padding: 10px; 
+                          background-color: teal;
+                    
+                          ">
+          {{ form.town }}
+        </div>
+        
+        <br>
+        <br>
+        <label>Διεύθυνση</label>
+        
+        <div style="
+                                margin-left: 5.3%;
+                                box-sizing: border-box;
+                                color: rgb(27, 27, 27);  
+                                display: inline; 
+                                padding: 10px; 
+                                background-color: teal;
+                          
+                                ">
+          {{ form.address }}
+        </div>
+        <br>
+        <br>
+        
+        <label>Ταχυδρομικός <br> Κώδικας (Τ.Κ)</label>
+        
+        <div style="
+                margin-left: 3.2%;
+                box-sizing: border-box;
+                color: rgb(27, 27, 27);  
+                display: inline; 
+                padding: 10px; 
+                background-color: teal;
+        
+                ">
+          {{ form.postalcode }}
+        </div>
+        
+        
+        <br>
+        <br>
+        <label>Περιγραφή Παραγγελίας</label> <br> <br>
+        <div style="
+                    margin-left: 3%;
+                    box-sizing: border-box;
+                    color: rgb(27, 27, 27);  
+                    display: inline; 
+                    padding: 10px; 
+                    background-color: teal;
+              
+                    ">
+        
+          {{ form.order_description }}
+        </div>
+        
+        <br>
+        <br>
+        <label>Παραγγελία</label> <br>
+        
+        <div style="
+                    margin-left: 3%;
+                    color: rgb(27, 27, 27);  
+                  ">
+        
+          {{ form.order }}
+        </div>
+        <br>
+        <br>
+        
+        <div class="form">
+          ΠΡΟΣΩΡΙΝΟ ΣΒΗΣΙΜΟ : {{ form.deleted }}
+        </div>
+        
+        <br>
+        <br>
+        
+        <button type="submit" class="btn btn-primary">ΑΠΟΘΗΚΕΥΣΗ ΑΛΛΑΓΩΝ</button>
+        
+        
+        
+        <!-- <button type="submit">Leave Feedback</button> -->
+        
+        </form>
+    <br>
+
+
+
+    {% endif %}
+
+    <form method="POST" onsubmit="return confirm('Are You Sure ?')" 
+    action="{% url 'greekdeleteorder' vieworders.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">ΣΒΗΣΙΜΟ ΓΙΑ ΠΑΝΤΑ</button>
+    </form>
+
+  </div>
+
+
+
+  {% endblock %}
+
+</body>
+
+</html>
